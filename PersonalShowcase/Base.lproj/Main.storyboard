@@ -12,6 +12,8 @@
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
+            <string>NotoSans-Bold</string>
+            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
             <string>NotoSans</string>
@@ -208,8 +210,61 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-7G-ZT6" customClass="MaterialView" customModule="PersonalShowcase" customModuleProvider="target">
+                                <rect key="frame" x="20" y="8" width="560" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nVO-my-N18">
+                                        <rect key="frame" x="0.0" y="10" width="560" height="30"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What's on your mind?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l02-3k-wNX" customClass="MaterialTextField" customModule="PersonalShowcase" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="30"/>
+                                                <animations/>
+                                                <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SLR Camera Filled-100" translatesAutoresizingMaskIntoConstraints="NO" id="GJD-tj-nSE">
+                                                <rect key="frame" x="460" y="0.0" width="30" height="30"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="U4H-uZ-vA9"/>
+                                                    <constraint firstAttribute="width" constant="30" id="bts-cR-BsF"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3SA-Lq-TXT" customClass="MaterialButton" customModule="PersonalShowcase" customModuleProvider="target">
+                                                <rect key="frame" x="500" y="0.0" width="60" height="30"/>
+                                                <animations/>
+                                                <color key="backgroundColor" red="0.1176470588" green="0.53333333329999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="dsj-iQ-b3X"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                                <state key="normal" title="POST">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <animations/>
+                                    </stackView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="nVO-my-N18" firstAttribute="top" secondItem="ASW-7G-ZT6" secondAttribute="top" constant="10" id="gxj-1o-fEn"/>
+                                    <constraint firstAttribute="height" constant="50" id="scv-Ht-GBW"/>
+                                    <constraint firstItem="nVO-my-N18" firstAttribute="leading" secondItem="ASW-7G-ZT6" secondAttribute="leading" id="sev-DY-axH"/>
+                                    <constraint firstAttribute="trailing" secondItem="nVO-my-N18" secondAttribute="trailing" id="ubc-me-1qo"/>
+                                    <constraint firstAttribute="bottom" secondItem="nVO-my-N18" secondAttribute="bottom" id="xbs-8d-C4n"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="xbs-8d-C4n"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="356" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OZz-sg-fmJ">
-                                <rect key="frame" x="20" y="0.0" width="560" height="536"/>
+                                <rect key="frame" x="20" y="66" width="560" height="470"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -227,10 +282,10 @@
                                                             <rect key="frame" x="8" y="8" width="528" height="324"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FzG-L1-JCr">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="528" height="104.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="528" height="105"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic" translatesAutoresizingMaskIntoConstraints="NO" id="dXj-Ff-bQ9">
-                                                                            <rect key="frame" x="0.0" y="27.5" width="50" height="50"/>
+                                                                            <rect key="frame" x="0.0" y="28" width="50" height="50"/>
                                                                             <animations/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="50" id="22I-n3-v9j"/>
@@ -238,7 +293,7 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rakesh Kusuma" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c6F-rg-usW">
-                                                                            <rect key="frame" x="55" y="40.5" width="250" height="23.5"/>
+                                                                            <rect key="frame" x="55" y="41" width="250" height="24"/>
                                                                             <animations/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="gQn-GU-bE3"/>
@@ -248,7 +303,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart-empty" translatesAutoresizingMaskIntoConstraints="NO" id="PnB-W5-2yC">
-                                                                            <rect key="frame" x="310" y="32.5" width="100" height="40"/>
+                                                                            <rect key="frame" x="310" y="33" width="100" height="40"/>
                                                                             <animations/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="100" id="cfU-ad-lhp"/>
@@ -259,14 +314,14 @@
                                                                             <rect key="frame" x="415" y="29" width="113" height="47"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="144" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="e3m-S5-DWD">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="113" height="23.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="113" height="24"/>
                                                                                     <animations/>
                                                                                     <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="17"/>
                                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hmY-0e-4N0">
-                                                                                    <rect key="frame" x="0.0" y="23.5" width="113" height="23.5"/>
+                                                                                    <rect key="frame" x="0.0" y="24" width="113" height="24"/>
                                                                                     <animations/>
                                                                                     <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="17"/>
                                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -279,7 +334,7 @@
                                                                     <animations/>
                                                                 </stackView>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="HcE-a2-6p9">
-                                                                    <rect key="frame" x="0.0" y="109.5" width="528" height="105"/>
+                                                                    <rect key="frame" x="0.0" y="110" width="528" height="105"/>
                                                                     <animations/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </string>
@@ -289,7 +344,7 @@
                                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                                 </textView>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-stacked" translatesAutoresizingMaskIntoConstraints="NO" id="HWw-5o-ozA">
-                                                                    <rect key="frame" x="0.0" y="219.5" width="528" height="104.5"/>
+                                                                    <rect key="frame" x="0.0" y="220" width="528" height="105"/>
                                                                     <animations/>
                                                                 </imageView>
                                                             </subviews>
@@ -303,6 +358,11 @@
                                                                 <constraint firstAttribute="trailing" secondItem="HcE-a2-6p9" secondAttribute="trailing" id="hyZ-zs-GQY"/>
                                                                 <constraint firstItem="HcE-a2-6p9" firstAttribute="leading" secondItem="bAR-dp-PgX" secondAttribute="leading" id="sHV-bE-5sq"/>
                                                             </constraints>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="7hp-sd-w30"/>
+                                                                </mask>
+                                                            </variation>
                                                         </stackView>
                                                     </subviews>
                                                     <animations/>
@@ -338,11 +398,20 @@
                         <animations/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="ASW-7G-ZT6" firstAttribute="leading" secondItem="hzg-vl-a9D" secondAttribute="leadingMargin" id="27i-8c-9uN"/>
+                            <constraint firstItem="ASW-7G-ZT6" firstAttribute="trailing" secondItem="hzg-vl-a9D" secondAttribute="trailingMargin" id="TeL-Gj-FpA"/>
                             <constraint firstItem="OZz-sg-fmJ" firstAttribute="leading" secondItem="hzg-vl-a9D" secondAttribute="leadingMargin" id="gab-IT-gtw"/>
                             <constraint firstItem="v4c-9w-Zey" firstAttribute="top" secondItem="OZz-sg-fmJ" secondAttribute="bottom" id="j37-ul-Wvf"/>
+                            <constraint firstItem="ASW-7G-ZT6" firstAttribute="top" secondItem="bgO-Sw-j5M" secondAttribute="bottom" constant="8" id="jLO-sO-Kdu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OZz-sg-fmJ" secondAttribute="trailing" id="lyW-qQ-MWb"/>
+                            <constraint firstItem="OZz-sg-fmJ" firstAttribute="top" secondItem="ASW-7G-ZT6" secondAttribute="bottom" constant="8" id="m1h-cs-9dL"/>
                             <constraint firstItem="OZz-sg-fmJ" firstAttribute="top" secondItem="bgO-Sw-j5M" secondAttribute="bottom" id="thh-4H-txC"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="thh-4H-txC"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="ofK-U9-280"/>
                     <connections>
@@ -375,6 +444,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="SLR Camera Filled-100" width="100" height="100"/>
         <image name="code-icon-logo" width="318" height="281"/>
         <image name="fb-icon" width="65" height="65"/>
         <image name="heart-empty" width="150" height="147"/>
