@@ -55,7 +55,8 @@ class ViewController: UIViewController {
                         
                         NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                         
-                        self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
+                        //self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
+                        self.performSegueWithIdentifier("firstTimeLoginSegue", sender: nil)
                     }
                     
                 })
@@ -104,12 +105,6 @@ class ViewController: UIViewController {
             
         }
     }
-//    func showErrorAlert(title: String, msg: String){
-//        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-//        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-//        alert.addAction(action)
-//        presentViewController(alert, animated: true, completion: nil)
-//        
-//    }
+
 }
 

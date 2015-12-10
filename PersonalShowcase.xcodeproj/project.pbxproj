@@ -10,6 +10,7 @@
 		9607D3B91C1796A70060D0E8 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607D3B81C1796A70060D0E8 /* FeedVC.swift */; };
 		9607D3BB1C1797720060D0E8 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607D3BA1C1797720060D0E8 /* PostCell.swift */; };
 		96092CDD1C199A8F0060B25C /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96092CDC1C199A8F0060B25C /* ProfileSettingsVC.swift */; };
+		96092CDF1C19B57F0060B25C /* MaterialTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96092CDE1C19B57F0060B25C /* MaterialTextView.swift */; };
 		966DA0F21C177D6F000107F3 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966DA0F11C177D6F000107F3 /* DataService.swift */; };
 		9694AD2C1C18465300A0633A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694AD2B1C18465300A0633A /* Post.swift */; };
 		96A28E051C1754480077991C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A28E041C1754480077991C /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		9607D3B81C1796A70060D0E8 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		9607D3BA1C1797720060D0E8 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		96092CDC1C199A8F0060B25C /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
+		96092CDE1C19B57F0060B25C /* MaterialTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextView.swift; sourceTree = "<group>"; };
 		966DA0F11C177D6F000107F3 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		9694AD2B1C18465300A0633A /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		96A28E011C1754480077991C /* PersonalShowcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalShowcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 				96A28E2A1C1761F40077991C /* MaterialButton.swift */,
 				96A28E2C1C1767650077991C /* MaterialTextField.swift */,
 				9607D3BA1C1797720060D0E8 /* PostCell.swift */,
+				96092CDE1C19B57F0060B25C /* MaterialTextView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				96A28E2D1C1767650077991C /* MaterialTextField.swift in Sources */,
 				966DA0F21C177D6F000107F3 /* DataService.swift in Sources */,
 				9607D3BB1C1797720060D0E8 /* PostCell.swift in Sources */,
+				96092CDF1C19B57F0060B25C /* MaterialTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
