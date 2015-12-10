@@ -39,7 +39,7 @@ class ViewController: UIViewController {
                 print("Facebook Login Failed. Error \(facebookError)")
             }else {
                 let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-                print("Succesfully logged in to Fcebook with Access Token : \(accessToken)")
+                print("Succesfully logged in to Facebook with Access Token : \(accessToken)")
                 
                 DataService.instance.REF_BASE.authWithOAuthProvider("facebook", token: accessToken, withCompletionBlock: { (error, authData) -> Void in
                     
@@ -54,6 +54,7 @@ class ViewController: UIViewController {
                         
                         
                         NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
+                        
                         self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
                     }
                     
@@ -71,7 +72,8 @@ class ViewController: UIViewController {
                     if attemptError.code == STATUS_ACCOUNT_NONEXIST {
                         DataService.instance.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { (ErrorType, AnyObject) -> Void in
                             if ErrorType != nil {
-                                self.showErrorAlert("Could Not Create Account", msg: "Problem Creating. Try Something Else")
+                               let alert =  DataService.instance.showErrorAlert("Could Not Create Account", msg: "Problem Creating. Try Something Else")
+                                self.presentViewController(alert, animated: true, completion: nil)
                                 
                             } else {
                                 NSUserDefaults.standardUserDefaults().setValue(AnyObject[KEY_UID], forKey: KEY_UID)
@@ -87,7 +89,8 @@ class ViewController: UIViewController {
                         })
                        
                     } else {
-                        self.showErrorAlert("Could Not Login", msg: "Please Check you Username or Password")
+                        let alert = DataService.instance.showErrorAlert("Could Not Login", msg: "Please Check you Username or Password")
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                     
                 } else {
@@ -96,15 +99,17 @@ class ViewController: UIViewController {
             })
             
         } else {
-            showErrorAlert("Email and Password Required", msg: "You must enter an Email and Password")
+            let alert = DataService.instance.showErrorAlert("Email and Password Required", msg: "You must enter an Email and Password")
+            self.presentViewController(alert, animated: true, completion: nil)
+            
         }
     }
-    func showErrorAlert(title: String, msg: String){
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated: true, completion: nil)
-        
-    }
+//    func showErrorAlert(title: String, msg: String){
+//        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+//        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+//        alert.addAction(action)
+//        presentViewController(alert, animated: true, completion: nil)
+//        
+//    }
 }
 

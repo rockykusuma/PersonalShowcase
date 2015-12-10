@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-
+import Firebase
 
 class PostCell: UITableViewCell {
 
@@ -16,11 +16,17 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var showCaseImg : UIImageView!
     @IBOutlet weak var descriptionText : UITextView!
     @IBOutlet weak var likesLbl: UILabel!
+    @IBOutlet weak var likeImage : UIImageView!
     var post : Post!
     var request : Request?    // Firebase Object
+    var likeRef : Firebase!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tap = UITapGestureRecognizer(target: self, action: "likeTapped:")
+        tap.numberOfTapsRequired = 1
+        likeImage.addGestureRecognizer(tap)
+        likeImage.userInteractionEnabled = true
         // Initialization code
     }
 
@@ -36,6 +42,7 @@ class PostCell: UITableViewCell {
 
     func configureCell(post:Post,image:UIImage?) {
         self.post = post
+        likeRef = DataService.instance.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
         self.descriptionText.text = post.postDescription
         self.likesLbl.text = "\(post.likes)"
         
@@ -49,6 +56,8 @@ class PostCell: UITableViewCell {
                         let img = UIImage(data: data!)!
                         self.showCaseImg.image = img
                         FeedVC.imageCache.setObject(img, forKey: self.post.imageURL!)
+                    } else {
+                        print(err.debugDescription)
                     }
                 })
             }
@@ -56,6 +65,43 @@ class PostCell: UITableViewCell {
         }else {
             self.showCaseImg.hidden = true
         }
+       // likeRef.observeSingleEventOfType(<#T##eventType: FEventType##FEventType#>, withBlock: <#T##((FDataSnapshot!) -> Void)!##((FDataSnapshot!) -> Void)!##(FDataSnapshot!) -> Void#>)
+        
+        likeRef.observeSingleEventOfType(.Value, withBlock: { snapShot in
+            
+            
+            /// IN firebase if there is no data in .value, you will get as NSNULL
+            if let _ = snapShot.value as? NSNull {
+                // This is means we have not liked this specified post
+                self.likeImage.image = UIImage(named: "heart-empty")
+
+            } else {
+                self.likeImage.image = UIImage(named: "heart-full")
+            }
+            
+        })
+
+    }
+    
+    func likeTapped(sender: UITapGestureRecognizer){
+        
+        likeRef.observeSingleEventOfType(.Value, withBlock: { snapShot in
+            
+            
+            /// IN firebase if there is no data in .value, you will get as NSNULL
+            if let _ = snapShot.value as? NSNull {
+                // This is means we have not liked this specified post
+                self.likeImage.image = UIImage(named: "heart-full")
+                self.post.adjustLike(true)
+                self.likeRef.setValue(true)
+            } else {
+               self.likeImage.image = UIImage(named: "heart-empty")
+                self.post.adjustLike(false)
+                self.likeRef.removeValue()
+            }
+            
+        })
+
         
     }
     

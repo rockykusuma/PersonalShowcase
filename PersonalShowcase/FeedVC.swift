@@ -18,6 +18,7 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
     
     var imagePicker : UIImagePickerController!
     var posts = [Post]()
+    var imageSelected = false
     static var imageCache = NSCache()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +29,12 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
         imagePicker.delegate = self
         
         DataService.instance.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value)
+            //pint(snapshot.value)
             
             self.posts = []
             if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
                 for snap in snapshots {
-                    print("Snap:---> \(snap)")
+                    //print("Snap:---> \(snap)")
                     if let postDict = snap.value as? Dictionary<String,AnyObject> {
                         let key = snap.key
                         let post = Post(postkey: key, dictionary: postDict)
@@ -93,7 +94,7 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
         imageSelectorImg.image = image
-        
+        imageSelected = true
         
     }
 
@@ -103,7 +104,7 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
     }
     @IBAction func makePostBtnClicked(sender: AnyObject) {
         if let text = postField.text where text != "" {
-            if let imageTemp = imageSelectorImg.image {
+            if let imageTemp = imageSelectorImg.image where imageSelected == true {
                 let urlStr = "https://post.imageshack.us/upload_api.php"
                 let url = NSURL(string: urlStr)!
                 let imgData = UIImageJPEGRepresentation(imageTemp, 0.2)!
@@ -117,14 +118,50 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
                     
                     }, encodingCompletion: { (encodingResult:Manager.MultipartFormDataEncodingResult) -> Void in
                         
-                        
-                        
+                        switch encodingResult {
+                        case.Success(let upload,_,_):
+                            upload.responseJSON(completionHandler: { response in
+                                if let info = response.result.value as? Dictionary<String,AnyObject> {
+                                    if let links = info["links"] as? Dictionary<String,AnyObject> {
+                                        if let imageLink = links["image_link"] as? String {
+                                            //print("Link: --->>>> \(imageLink)")
+                                            self.postToFirebase(imageLink)
+                                            let alert = DataService.instance.showErrorAlert("Success", msg: "Your Post has Been Successfully Posted!!")
+                                            self.presentViewController(alert, animated: true, completion: nil)
+                                            
+                                        }
+                                    }
+                                }
+                            })
+                        case.Failure(let error):
+                            print(error)
+                        }
                 })
-                
-                
-                
+            } else {
+                self.postToFirebase(nil)
             }
-            
         }
     }
+    
+    
+    
+    func postToFirebase(imageUrl:String?) {
+        
+        var post : Dictionary <String, AnyObject> = [
+            
+            "description" : postField.text!,
+            "likes" : 0
+        ]
+        if imageUrl != nil {
+            post["imageURL"] = imageUrl!
+        }
+        let firebasePost = DataService.instance.REF_POSTS.childByAutoId()
+        firebasePost.setValue(post)
+        postField.text = ""
+        imageSelectorImg.image = UIImage(named: "SLR Camera Filled-100")
+        imageSelected = false
+        tableView.reloadData()
+    }
+    
+    
 }

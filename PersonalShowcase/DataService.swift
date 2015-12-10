@@ -35,10 +35,24 @@ class DataService {
     var REF_LIKES : Firebase {
         return _REF_LIKES
     }
+    
+    var REF_USER_CURRENT : Firebase {
+        let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        let user = Firebase(url: "\(URL_BASE)").childByAppendingPath("users").childByAppendingPath(uid)
+        return user!
+    }
 
     func createFirebaseUser (uid:String, user:Dictionary<String,String>) {
         
         REF_USERS.childByAppendingPath(uid).setValue(user)
     }
+    
+    func showErrorAlert(title: String, msg: String) -> UIAlertController{
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(action)
+        return alert
+    }
+
     
 }
