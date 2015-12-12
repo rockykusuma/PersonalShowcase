@@ -18,8 +18,8 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImage : UIImageView!
     var post : Post!
-    var request : Request?    // Firebase Object
-    var likeRef : Firebase!
+    var request : Request?
+    var likeRef : Firebase!   // Firebase Object
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,11 +34,7 @@ class PostCell: UITableViewCell {
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.clipsToBounds = true
     }
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-    }
 
     func configureCell(post:Post,image:UIImage?) {
         self.post = post
@@ -68,7 +64,6 @@ class PostCell: UITableViewCell {
        // likeRef.observeSingleEventOfType(<#T##eventType: FEventType##FEventType#>, withBlock: <#T##((FDataSnapshot!) -> Void)!##((FDataSnapshot!) -> Void)!##(FDataSnapshot!) -> Void#>)
         
         likeRef.observeSingleEventOfType(.Value, withBlock: { snapShot in
-            
             
             /// IN firebase if there is no data in .value, you will get as NSNULL
             if let _ = snapShot.value as? NSNull {
@@ -101,10 +96,7 @@ class PostCell: UITableViewCell {
             }
             
         })
-
-        
+   
     }
-    
-    
-    
+  
 }

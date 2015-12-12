@@ -86,8 +86,10 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-PersonalShowcase/Alamofire.framework"
   install_framework "Pods-PersonalShowcase/Firebase.framework"
+  install_framework "Pods-PersonalShowcase/MBProgressHUD.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-PersonalShowcase/Alamofire.framework"
   install_framework "Pods-PersonalShowcase/Firebase.framework"
+  install_framework "Pods-PersonalShowcase/MBProgressHUD.framework"
 fi

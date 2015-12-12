@@ -15,11 +15,24 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
     @IBOutlet weak var tableView : UITableView!
     @IBOutlet weak var postField: MaterialTextField!
     @IBOutlet weak var imageSelectorImg: UIImageView!
+    var refreshControl : UIRefreshControl!
     
     var imagePicker : UIImagePickerController!
     var posts = [Post]()
     var imageSelected = false
     static var imageCache = NSCache()
+    
+    
+    func refresh(sender:AnyObject)
+    {
+        // Code to refresh table view
+        self.refreshControl.beginRefreshing()
+        self.getFeeds()
+        self.refreshControl.endRefreshing()
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -27,7 +40,17 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
         tableView.estimatedRowHeight = 356
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.enabled = true
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(refreshControl)
+        getFeeds()
+
         
+
+    }
+    func getFeeds() {
         DataService.instance.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
             //pint(snapshot.value)
             
@@ -44,6 +67,7 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
             }
             self.tableView.reloadData()
         })
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +75,11 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func profileSettings(sender:AnyObject){
+        
+        self.performSegueWithIdentifier("profileSettingsSegue", sender: nil)
+        
+    }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -66,12 +95,10 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
         if let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as? PostCell {
             cell.request?.cancel()
             var img : UIImage?
-            
             if let url = post.imageURL {
                 img = FeedVC.imageCache.objectForKey(url) as? UIImage
                 
             }
-            
             cell.configureCell(post,image: img)
             return cell
         } else {
@@ -119,6 +146,7 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
                     }, encodingCompletion: { (encodingResult:Manager.MultipartFormDataEncodingResult) -> Void in
                         
                         switch encodingResult {
+                            
                         case.Success(let upload,_,_):
                             upload.responseJSON(completionHandler: { response in
                                 if let info = response.result.value as? Dictionary<String,AnyObject> {
@@ -126,7 +154,7 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
                                         if let imageLink = links["image_link"] as? String {
                                             //print("Link: --->>>> \(imageLink)")
                                             self.postToFirebase(imageLink)
-                                            let alert = DataService.instance.showErrorAlert("Success", msg: "Your Post has Been Successfully Posted!!")
+                                            let alert = DataService.instance.showErrorAlertSimple("Success", msg: "Your Post has Been Successfully Posted!!")
                                             self.presentViewController(alert, animated: true, completion: nil)
                                             
                                         }
@@ -141,20 +169,26 @@ class FeedVC: UIViewController , UITableViewDelegate, UITableViewDataSource, UII
                 self.postToFirebase(nil)
             }
         }
+        //let alert = DataService.instance.showErrorAlert("Success", msg: "Your Post has Been Successfully Posted!!")
+        //self.presentViewController(alert, animated: true, completion: nil)
+
     }
     
     
     
     func postToFirebase(imageUrl:String?) {
-        
+        //let firebaseUSerDetails_username = DataService.instance.REF_USER_CURRENT
+        let firebaseUSerDetails_uniqueUserName = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        //print("Current User Name is --------->\(firebaseUSerDetails_username)")
         var post : Dictionary <String, AnyObject> = [
-            
             "description" : postField.text!,
-            "likes" : 0
+            "likes" : 0,
+            "uniqueUserName" : firebaseUSerDetails_uniqueUserName
         ]
         if imageUrl != nil {
             post["imageURL"] = imageUrl!
         }
+
         let firebasePost = DataService.instance.REF_POSTS.childByAutoId()
         firebasePost.setValue(post)
         postField.text = ""
